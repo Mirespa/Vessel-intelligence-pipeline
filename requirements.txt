@@ -1,0 +1,16 @@
+# Environment & Database
+python-dotenv==1.0.1
+psycopg2-binary==2.9.9
+SQLAlchemy==2.0.27
+
+# Geospatial Data Handling
+geopandas==0.14.3
+shapely==2.0.3
+fiona==1.9.5
+pyproj==3.6.1
+
+# Satellite API & Raster Processing
+sentinelsat==1.2.1
+rasterio==1.3.9
+numpy==1.26.4
+pandas==2.2.1

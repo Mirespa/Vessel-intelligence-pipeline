@@ -1,0 +1,19 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Local Data
+data/raw/
+data/processed/
+*.SAFE/
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db
