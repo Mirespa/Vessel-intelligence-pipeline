@@ -15,6 +15,7 @@ from rasterio.io import MemoryFile
 from shapely.geometry import box
 from tqdm import tqdm
 from src.config import config
+from src.landmask import apply_land_mask
 
 # Build the AOI polygon from the single source of truth in config
 AOI_polygon = box(*config.AOI_BOUNDS)
@@ -66,7 +67,7 @@ def _process_scene(zip_path):
         print(f"Already processed, skipping: {zip_path.name}")
         return
 
-    with tqdm(total=5, desc=scene_title[:35]) as pbar:
+    with tqdm(total=6, desc=scene_title[:35]) as pbar:
 
         # Step 1: Open the ZIP archive
         pbar.set_description("Opening ZIP archive")
@@ -111,6 +112,11 @@ def _process_scene(zip_path):
             with rasterio.open(out_path, "w", **meta) as dest:
                 dest.write(data_cropped)
             pbar.update(1)
+
+        # Step 6: Zero out land pixels so detection only runs over water
+        pbar.set_description("Applying land mask")
+        apply_land_mask(out_path)
+        pbar.update(1)
 
     print(f"Saved: {out_path.name}")
 
